@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:firstporject/constants/colors.dart';
+import '../constants/colors.dart';
+import '../widgets/todoItem.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -12,9 +13,35 @@ class Home extends StatelessWidget {
       backgroundColor: tbBGColor,
       appBar: buildAppBar(),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: Column(
-          children: [searchBox()],
+          children: [
+            searchBox(),
+            Expanded(
+              child: ListView(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 50, bottom: 20),
+                    child: Text(
+                      "All Todos",
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  TodoItem(),
+                  TodoItem(),
+                  TodoItem(),
+                  TodoItem(),
+                  TodoItem(),
+                  TodoItem(),
+                  TodoItem(),
+                  TodoItem(),
+                  TodoItem(),
+                  TodoItem(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -26,12 +53,13 @@ class Home extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: TextField(
+          style: TextStyle(fontSize: 20),
           decoration: InputDecoration(
               contentPadding: EdgeInsets.all(0),
               prefix: Icon(
                 Icons.search,
                 color: tbBlack,
-                size: 20,
+                size: 15,
               ),
               prefixIconConstraints:
                   BoxConstraints(maxHeight: 20, minWidth: 25),

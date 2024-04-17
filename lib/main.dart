@@ -16,6 +16,6 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MaterialApp(
-        debugShowCheckedModeBanner: false, title: "Flutter Demo", home: Home());
+        debugShowCheckedModeBanner: false, title: "TODO list", home: Home());
   }
 }
