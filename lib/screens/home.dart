@@ -1,22 +1,26 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors // Ignore the lint rule for preferring const constructors, prefer_const_constructors
 
-import '../constants/colors.dart';
-import '../widgets/todoItem.dart';
+import '../model/todo.dart'; // Import the todo model
+import '../constants/colors.dart'; // Import color constants
+import '../widgets/todoItem.dart'; // Import the todo item widget
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key}); // Constructor for the Home widget
+
+  List<ToDo> todosList = ToDo.todoList(); // List to store todo items
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: tbBGColor,
-      appBar: buildAppBar(),
+      backgroundColor: tbBGColor, // Set the background color of the scaffold
+      appBar:
+          buildAppBar(), // Call the buildAppBar method to create the app bar
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: Column(
           children: [
-            searchBox(),
+            searchBox(), // Call the searchBox method to create the search box
             Expanded(
               child: ListView(
                 children: [
@@ -28,16 +32,8 @@ class Home extends StatelessWidget {
                           TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                     ),
                   ),
-                  TodoItem(),
-                  TodoItem(),
-                  TodoItem(),
-                  TodoItem(),
-                  TodoItem(),
-                  TodoItem(),
-                  TodoItem(),
-                  TodoItem(),
-                  TodoItem(),
-                  TodoItem(),
+                  // Display each todo item using TodoItem widget
+                  for (ToDo todoo in todosList) TodoItem(todo: todoo),
                 ],
               ),
             ),
@@ -47,6 +43,7 @@ class Home extends StatelessWidget {
     );
   }
 
+  // Method to create the search box widget
   Widget searchBox() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
@@ -69,6 +66,7 @@ class Home extends StatelessWidget {
     );
   }
 
+  // Method to create the app bar widget
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
