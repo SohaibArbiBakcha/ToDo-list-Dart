@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: tbBGColor,
-      appBar: buildAppBar(),
+      appBar: appBar(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: Column(
@@ -43,6 +43,31 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  AppBar appBar() {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: tbBGColor,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(
+            Icons.menu,
+            color: tbBlack,
+            size: 30,
+          ),
+          SizedBox(
+            height: 40,
+            width: 40,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset('assets/images/user.jpg'),
+            ),
+          )
+        ],
       ),
     );
   }
