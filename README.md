@@ -38,11 +38,6 @@ flutter pub get
 
 flutter run
 
-
-## Usage
-
-## Usage
-
 ## Usage
 
 1. Launch the app on your device or emulator.
