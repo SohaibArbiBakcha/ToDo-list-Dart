@@ -54,7 +54,6 @@ flutter run
    - Tap on the task item to mark it as done. It will appear with a strike-through.
 
 5. **Deleting a Task:**
-   - Swipe left on the task item.
    - Tap on the delete icon located on the right side of the task item.
 
 6. **Searching for Tasks:**
