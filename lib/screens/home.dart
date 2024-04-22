@@ -1,20 +1,26 @@
-// ignore_for_file: prefer_const_constructors // Ignore the lint rule for preferring const constructors, prefer_const_constructors, must_be_immutable
+// ignore_for_file: prefer_const_constructors // Ignore the lint rule for preferring const constructors
 
+// Importing necessary dependencies and files
 import '../model/todo.dart'; // Import the todo model
 import '../constants/colors.dart'; // Import color constants
 import '../widgets/todoItem.dart'; // Import the todo item widget
 import 'package:flutter/material.dart';
 
+// Defining the Home widget, responsible for displaying the todo list
 class Home extends StatefulWidget {
-  Home({super.key});
+  Home({super.key}); // Constructor for the Home widget
+
   @override
-  State<Home> createState() => _HomeState();
+  State<Home> createState() =>
+      _HomeState(); // Creating state for the Home widget
 }
 
+// Defining the state of the Home widget
 class _HomeState extends State<Home> {
-  // Constructor for the Home widget
-  List<ToDo> todosList = ToDo.todoList();
-  // List to store todo items
+  // Constructor for the Home state
+  List<ToDo> todosList = ToDo.todoList(); // List to store todo items
+
+  // Building the UI of the Home widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +46,12 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       // Display each todo item using TodoItem widget
-                      for (ToDo todoo in todosList) TodoItem(todo: todoo),
+                      for (ToDo todoo in todosList)
+                        TodoItem(
+                          todo: todoo,
+                          onToDoChange: handleTodoChange,
+                          onDeleteItem: deleteTodoItem,
+                        ),
                     ],
                   ),
                 ),
@@ -117,9 +128,17 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // Method to handle changes in todo item status
   void handleTodoChange(ToDo todo) {
     setState(() {
       todo.isDone = !todo.isDone;
+    });
+  }
+
+  // Method to delete a todo item
+  void deleteTodoItem(String id) {
+    setState(() {
+      todosList.removeWhere((item) => item.id == id);
     });
   }
 
