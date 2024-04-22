@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors // Ignore the lint rule for preferring const constructors, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors // Ignore the lint rule for preferring const constructors, prefer_const_constructors, use_super_parameters, file_names
 
 import '../model/todo.dart'; // Import the todo model
 import '../constants/colors.dart'; // Import color constants
