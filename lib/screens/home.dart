@@ -19,6 +19,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // Constructor for the Home state
   List<ToDo> todosList = ToDo.todoList(); // List to store todo items
+  List<ToDo> foundTodo = []; // List to store filtered todo items
+  final todoController =
+      TextEditingController(); // Controller for todo text field
+
+  @override
+  void initState() {
+    foundTodo = todosList; // Initialize foundTodo list with all todos
+    super.initState();
+  }
 
   // Building the UI of the Home widget
   @override
@@ -46,7 +55,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       // Display each todo item using TodoItem widget
-                      for (ToDo todoo in todosList)
+                      for (ToDo todoo in foundTodo.reversed)
                         TodoItem(
                           todo: todoo,
                           onToDoChange: handleTodoChange,
@@ -78,6 +87,7 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
+                      controller: todoController,
                       decoration: InputDecoration(
                           hintText: 'Add new Todo', border: InputBorder.none),
                     ),
@@ -94,7 +104,9 @@ class _HomeState extends State<Home> {
                         backgroundColor: tdBlue,
                         minimumSize: Size(60, 60),
                         elevation: 10),
-                    onPressed: () {},
+                    onPressed: () {
+                      addTodoItem(todoController.text);
+                    },
                   ),
                 )
               ],
@@ -105,6 +117,37 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // Method to add a new todo item
+  void addTodoItem(String todoText) {
+    setState(() {
+      // Add new todo with current timestamp as ID
+      todosList.add(ToDo(
+          id: DateTime.now().microsecondsSinceEpoch.toString(),
+          todoText: todoText));
+    });
+    todoController.clear(); // Clear the text field after adding todo
+  }
+
+  // Method to filter todo items based on entered keyword
+  void runFilter(String enteredKeyword) {
+    List<ToDo> results = [];
+    if (enteredKeyword.isEmpty) {
+      // If search field is empty, display all todos
+      results = todosList;
+    } else {
+      // Filter todos based on entered keyword
+      results = todosList
+          .where((item) => item.todoText!
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    setState(() {
+      foundTodo = results; // Update foundTodo list with filtered results
+    });
+  }
+
   // Method to create the search box widget
   Widget searchBox() {
     return Container(
@@ -112,6 +155,8 @@ class _HomeState extends State<Home> {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: TextField(
+          onChanged: (value) =>
+              runFilter(value), // Call runFilter on text change
           style: TextStyle(fontSize: 20),
           decoration: InputDecoration(
               contentPadding: EdgeInsets.all(0),
@@ -131,14 +176,15 @@ class _HomeState extends State<Home> {
   // Method to handle changes in todo item status
   void handleTodoChange(ToDo todo) {
     setState(() {
-      todo.isDone = !todo.isDone;
+      todo.isDone = !todo.isDone; // Toggle the isDone status of todo item
     });
   }
 
   // Method to delete a todo item
   void deleteTodoItem(String id) {
     setState(() {
-      todosList.removeWhere((item) => item.id == id);
+      todosList
+          .removeWhere((item) => item.id == id); // Remove todo with given ID
     });
   }
 
@@ -160,7 +206,7 @@ class _HomeState extends State<Home> {
             width: 40,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.asset('assets/images/user.jpg'),
+              child: Image.asset('assets/images/user.jpg'), // Placeholder image
             ),
           )
         ],
