@@ -24,7 +24,7 @@ This todo list app provides a simple and efficient way to manage your tasks. Wit
 
 1. Clone the repository:
 
-git clone https://github.com/your_username/todo_list_app.git
+git clone [https://github.com/your_username/todo_list_app.git](https://github.com/SohaibArbiBakcha/ToDo-list-Dart.git)
 
 2. Navigate to the project directory:
 
